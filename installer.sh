@@ -1,9 +1,8 @@
-pip install --upgrade pip
-pip install flask werkzeug
-# Run the application
-echo -e "${GREEN}"
-echo "Starting JZFileBrowser..."
-echo -e "Access at: ${BLUE}http://localhost:5000${GREEN}"
-echo "Press Ctrl+C to stop"
-echo -e "${NC}"
-python3 JZFileBrowser/main.py
+wget https://github.com/WeJZTeam/JZFileBrowser/archive/refs/heads/main.zip && \
+unzip main.zip "JZFileBrowser-main/JZFileBrowser/*" -d temp_dir && \
+mv temp_dir/JZFileBrowser-main/* . && \
+rm -rf main.zip temp_dir JFileBrowser-main && \
+
+
+wget https://raw.githubusercontent.com/WeJZTeam/JZFileBrowser/main/start.sh
+chmod +x start.sh
