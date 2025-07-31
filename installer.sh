@@ -1,1 +1,2 @@
-wget https://github.com/jz-dev/JZFileBrowser/archive/refs/heads/main.zip
+git clone https://github.com/WeJZTeam/JZFileBrowser.git
+wget https://raw.githubusercontent.com/WeJZTeam/JZFileBrowser/main/start.sh
