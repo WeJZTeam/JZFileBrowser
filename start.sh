@@ -9,7 +9,7 @@
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
-wget https://github.com/jz-dev/JZFileBrowser/archive/refs/heads/main.zip
+
 # Display header
 echo -e "${GREEN}"
 echo "   ___  _______  ___  ___  _______  ___       ___  ___  ___  __   __  ___  "
