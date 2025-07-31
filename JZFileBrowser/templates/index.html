@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-md-6">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                {% if current_path %}
+                    {% for part in current_path.split('/') %}
+                        {% if part %}
+                            <li class="breadcrumb-item">
+                                <a href="{{ url_for('index', path='/'.join(current_path.split('/')[:loop.index])) }}">
+                                    {{ part }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </ol>
+        </nav>
+    </div>
+    <div class="col-md-6 text-end">
+        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#createModal">
+            <i class="bi bi-plus-circle"></i> Create
+        </button>
+        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadModal">
+            <i class="bi bi-upload"></i> Upload
+        </button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if not items %}
+            <div class="alert alert-info">This directory is empty</div>
+        {% else %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Modified</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if parent_dir is not none %}
+                    <tr>
+                        <td colspan="4">
+                            <a href="{{ url_for('index', path=parent_dir) }}">
+                                <i class="bi bi-folder2"></i> ..
+                            </a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    
+                    {% for item in items %}
+                    <tr>
+                        <td>
+                            <a href="{% if item.is_dir %}{{ url_for('index', path=item.path) }}{% else %}{{ url_for('view_file', filepath=item.path) }}{% endif %}">
+                                <i class="bi {% if item.is_dir %}bi-folder2{% else %}bi-file-earmark{% endif %}"></i>
+                                {{ item.name }}
+                            </a>
+                        </td>
+                        <td>
+                            {% if not item.is_dir %}
+                                {{ item.size|filesizeformat }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>{{ item.modified|datetimeformat }}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                {% if not item.is_dir %}
+                                    <a href="{{ url_for('download_file', filepath=item.path) }}" class="btn btn-outline-primary" title="Download">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                {% endif %}
+                                <form method="POST" action="{{ url_for('delete_item') }}" class="d-inline">
+                                    <input type="hidden" name="path" value="{{ item.path }}">
+                                    <button type="submit" class="btn btn-outline-danger" title="Delete" onclick="return confirm('Are you sure?')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+
+<!-- تضمين نماذج الإنشاء والرفع هنا -->
+{% include 'modals.html' %}
+{% endblock %}
