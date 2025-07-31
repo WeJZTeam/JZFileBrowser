@@ -1,7 +1,7 @@
 # JZFileBrowser
 JZFileBrowser is a modern and advanced file browser that provides an intuitive user interface for managing files and folders on your server.
 
-
+Browse, upload, download, organize and edit files ( all in one )
 
 # Download JZFileBrowser
   
