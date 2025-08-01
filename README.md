@@ -15,8 +15,8 @@ chmod +x installer.sh
 # Run
 ./installer.sh
 
-Download finished
-Delete the file after downloading because it is worthless.
+# Download finished
+# Delete the file after downloading because it is worthless.
 ```
 
 # run JZFileBrowser
